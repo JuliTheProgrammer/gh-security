@@ -1,0 +1,17 @@
+name: Output
+on: 
+  push:
+
+jobs:
+  build:
+    outputs:
+      file-name: ${{ steps.ouput.outputs.output-value }}
+    -steps:
+      - name: Output Something
+        id: output
+        run: echo "output-value = someSecret" >> "$GITHUB_OUTPUT"
+  test:
+    needs: build
+    -steps:
+      - name: Output Value
+        run: echo "${{ needs.build.file-name }}"
