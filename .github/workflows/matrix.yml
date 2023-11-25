@@ -8,11 +8,13 @@ jobs:
     strategy:
       matrix:
         OPERATING_SYSTEM: [ubuntu-latest, macos-latest]
-        NODE_VERSION: [12]
+        NODE_VERSION: [12, 14]
         include:
           - OPERATING_SYSTEM: macos-latest
             NODE_VERSION: 20
-            NPM_VERSION: 10
+        exclude:
+          - OPERATING_SYSTEM: ubuntu-latest
+            NODE_VERSION: 14
 
     runs-on: ${{ matrix.OPERATING_SYSTEM }}
     steps:
