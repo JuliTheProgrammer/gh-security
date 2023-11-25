@@ -16,4 +16,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Output Value
-        run: echo "${{ needs.build..outputs.file-name }}"
+        run: echo "${{ needs.build.outputs.file-name }}"
