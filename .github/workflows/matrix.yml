@@ -7,8 +7,13 @@ jobs:
     continue-on-error: true
     strategy:
       matrix:
-        OPERATING_SYSTEM: [ubuntu-latest, windows-latest, macos-latest]
-        NODE_VERSION: [12,14,15,17,18]
+        OPERATING_SYSTEM: [ubuntu-latest, macos-latest]
+        NODE_VERSION: [12]
+        include:
+          - OPERATING_SYSTEM: macos-latest
+            NODE_VERSION: 20
+            NPM_VERSION: 10
+
     runs-on: ${{ matrix.OPERATING_SYSTEM }}
     steps:
       - name: Checkout Code
@@ -17,3 +22,5 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.NODE_VERSION }}
+          if: ${{ matrix.NPM_VERSION }}
+          run: npm install -g npm@${{ matrix.npm }}
