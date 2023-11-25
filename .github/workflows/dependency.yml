@@ -1,6 +1,6 @@
 name: Dependency Caching Demo
 on:
-  puhs:
+  push:
 
 jobs:
   build:
