@@ -1,19 +1,30 @@
-name: Output
+name: Matrix Demo
 on:
   push:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
-    outputs:
-      file-name: ${{ steps.ouput.outputs.output-value }}
+    continue-on-error: true
+    strategy:
+      matrix:
+        OPERATING_SYSTEM: [ubuntu-latest, macos-latest]
+        NODE_VERSION: [12, 14]
+        include:
+          - OPERATING_SYSTEM: macos-latest
+            NODE_VERSION: 20
+          - OPERATING_SYSTEM: windows-latest
+            NODE_VERSION: 20
+        exclude:
+          - OPERATING_SYSTEM: ubuntu-latest
+            NODE_VERSION: 14
+
+    runs-on: ${{ matrix.OPERATING_SYSTEM }}
     steps:
-      - name: Output Something
-        id: output
-        run: echo "output-value = someSecret" >> "$GITHUB_OUTPUT"
-  test:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Output Value
-        run: echo "${{ needs.build.file-name }}"
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      - name: Install Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.NODE_VERSION }}
+          if: ${{ matrix.NPM_VERSION }}
+          run: npm install -g npm@${{ matrix.npm }}
