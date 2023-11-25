@@ -1,6 +1,5 @@
 name: Output
-on: 
-  push:
+on: push
 
 jobs:
   build:
