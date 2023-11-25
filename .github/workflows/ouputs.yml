@@ -6,10 +6,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     outputs:
-      file-name: ${{ steps.ouput.outputs.output-value }}
+      file-name: ${{ steps.file.outputs.output-value }}
     steps:
       - name: Output Something
-        id: output
+        id: file
         run: echo 'output-value=someSecret' >> $GITHUB_OUTPUT
   test:
     needs: build
