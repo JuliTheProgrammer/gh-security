@@ -12,6 +12,8 @@ jobs:
         include:
           - OPERATING_SYSTEM: macos-latest
             NODE_VERSION: 20
+          - OPERATING_SYSTEM: windows-latest
+            NODE_VERSION: 20
         exclude:
           - OPERATING_SYSTEM: ubuntu-latest
             NODE_VERSION: 14
