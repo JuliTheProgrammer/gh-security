@@ -10,7 +10,7 @@ jobs:
     steps:
       - name: Output Something
         id: output
-        run: echo "output-value = someSecret" >> "$GITHUB_OUTPUT"
+        run: echo 'output-value=someSecret' >> $GITHUB_OUTPUT
   test:
     needs: build
     runs-on: ubuntu-latest
