@@ -7,13 +7,13 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       file-name: ${{ steps.ouput.outputs.output-value }}
-    -steps:
+    steps:
       - name: Output Something
         id: output
         run: echo "output-value = someSecret" >> "$GITHUB_OUTPUT"
   test:
     needs: build
     runs-on: ubuntu-latest
-    -steps:
+    steps:
       - name: Output Value
         run: echo "${{ needs.build.file-name }}"
