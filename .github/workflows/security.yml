@@ -1,1 +1,29 @@
 name: Security Demo
+on: 
+  pull_request:
+    types: [opened]
+
+#Getting the input from a user pull request
+
+permissions:
+  pull_request: read
+
+jobs:
+  runs-on: ubuntu-latest
+  build:
+  #Would be redundant but just as a demo
+    permissions:
+      pull_request: read
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@4
+      - name: Install Dependencies
+        run: npm ci
+  output:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Output User Input
+        env:
+          PULL_REQUEST_TITLE: ${{ github.event.pull_request.title}}
+        run: echo "${{ env.PULL_REQUEST_TITLE }}"
