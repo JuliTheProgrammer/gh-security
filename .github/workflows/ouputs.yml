@@ -1,8 +1,10 @@
 name: Output
-on: push
+on: 
+  push:
 
 jobs:
   build:
+    runs-on: ubuntu-latest
     outputs:
       file-name: ${{ steps.ouput.outputs.output-value }}
     -steps:
@@ -11,6 +13,7 @@ jobs:
         run: echo "output-value = someSecret" >> "$GITHUB_OUTPUT"
   test:
     needs: build
+    runs-on: ubuntu-latest
     -steps:
       - name: Output Value
         run: echo "${{ needs.build.file-name }}"
